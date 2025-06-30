@@ -352,10 +352,10 @@ colors_folder() {
   if [[ "$scheme" == '-Rosepine' ]]; then
     case "$theme" in
       '')
-        theme_color='#c4a7e7'
+        theme_color='#31748f'
         ;;
       -Purple)
-        theme_color='#ebbcba'
+        theme_color='#c4a7e7'
         ;;
       -Pink)
         theme_color='#eb6f92'
