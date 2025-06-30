@@ -6,18 +6,47 @@
     flake-utils.url = "github:numtide/flake-utils";
   };
 
-  outputs = { self, nixpkgs, flake-utils, ... }:
-    flake-utils.lib.eachDefaultSystem (system:
-      let
-        pkgs = import nixpkgs { inherit system; };
+  outputs = { self, nixpkgs, ... }: 
+    let
+      system = "x86_64-linux";
+      pkgs = import nixpkgs { inherit system; };
 
-        # Customize your default variants here
-        custom-colloid-icon = pkgs.callPackage ./colloid-icon-theme.nix {
-          schemeVariants = [ "default" ];
-          colorVariants = [ "default" ];
-        };
-      in {
-        packages.default = custom-colloid-icon;
-      }
-    );
+      schemes = [
+        "default" "nord" "dracula" "gruvbox" "everforest"
+        "catppuccin" "rosepine" "kanagawa"
+      ];
+
+      colors = [
+        "default" "purple" "pink" "red" "orange"
+        "yellow" "green" "teal" "grey"
+      ];
+
+      combinations =
+        builtins.concatMap
+          (scheme:
+            builtins.map (color: {
+              name = "${scheme}${color}";
+              schemeVariant = scheme;
+              colorVariant = color;
+            })
+            colors
+          )
+          schemes;
+
+      customPackages = builtins.listToAttrs (builtins.map
+        ({ name, schemeVariant, colorVariant }:
+          {
+            name = name;
+            value = pkgs.callPackage ./colloid-icon-theme.nix {
+              schemeVariants = [ schemeVariant ];
+              colorVariants = [ colorVariant ];
+            };
+          })
+        combinations);
+
+    in {
+      packages.${system} = customPackages // {
+        default = customPackages.defaultdefault;
+      };
+    };
 }
