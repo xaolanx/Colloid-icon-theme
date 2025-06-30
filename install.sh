@@ -16,7 +16,7 @@ SRC_DIR="$(cd "$(dirname "$0")" && pwd)"
 
 THEME_NAME=Colloid
 THEME_VARIANTS=('' '-Purple' '-Pink' '-Red' '-Orange' '-Yellow' '-Green' '-Teal' '-Grey')
-SCHEME_VARIANTS=('' '-Nord' '-Dracula' '-Gruvbox' '-Everforest' '-Catppuccin')
+SCHEME_VARIANTS=('' '-Nord' '-Dracula' '-Gruvbox' '-Everforest' '-Catppuccin' '-Rosepine' '-Kanagawa')
 COLOR_VARIANTS=('-Light' '-Dark' '')
 
 themes=()
@@ -30,7 +30,7 @@ cat << EOF
   OPTIONS:
     -d, --dest DIR          Specify destination directory (Default: $DEST_DIR)
     -n, --name NAME         Specify theme name (Default: $THEME_NAME)
-    -s, --scheme VARIANTS   Specify folder colorscheme variant(s) [default|nord|dracula|gruvbox|everforest|catppuccin|all]
+    -s, --scheme VARIANTS   Specify folder colorscheme variant(s) [default|nord|dracula|gruvbox|everforest|catppuccin|rosepine|kanagawa|all]
     -t, --theme VARIANTS    Specify folder color theme variant(s) [default|purple|pink|red|orange|yellow|green|teal|grey|all] (Default: blue)
     -b, --bold              Install bolder panel icons version (1.5px size)
     -notint, --notint       Disable Follow ColorSheme for folders on KDE Plasma
@@ -348,6 +348,70 @@ colors_folder() {
         ;;
     esac
   fi
+
+  if [[ "$scheme" == '-Rosepine' ]]; then
+    case "$theme" in
+      '')
+        theme_color='#c4a7e7'
+        ;;
+      -Purple)
+        theme_color='#ebbcba'
+        ;;
+      -Pink)
+        theme_color='#eb6f92'
+        ;;
+      -Red)
+        theme_color='#eb6f92'
+        ;;
+      -Orange)
+        theme_color='#f6c177'
+        ;;
+      -Yellow)
+        theme_color='#f6c177'
+        ;;
+      -Green)
+        theme_color='#9ccfd8'
+        ;;
+      -Teal)
+        theme_color='#31748f'
+        ;;
+      -Grey)
+        theme_color='#6e6a86'
+        ;;
+    esac
+  fi  
+
+  if [[ "$scheme" == '-Kanagawa' ]]; then
+    case "$theme" in
+      '')
+        theme_color='#7e9cd8'
+        ;;
+      -Purple)
+        theme_color='#957fb8'
+        ;;
+      -Pink)
+        theme_color='#d27e99'
+        ;;
+      -Red)
+        theme_color='#c34043'
+        ;;
+      -Orange)
+        theme_color='#ffa066'
+        ;;
+      -Yellow)
+        theme_color='#c0a36e'
+        ;;
+      -Green)
+        theme_color='#76946a'
+        ;;
+      -Teal)
+        theme_color='#6a9589'
+        ;;
+      -Grey)
+        theme_color='#54546d'
+        ;;
+    esac
+  fi
 }
 
 while [[ "$#" -gt 0 ]]; do
@@ -409,6 +473,16 @@ while [[ "$#" -gt 0 ]]; do
             echo -e "\nCatppuccin ColorScheme version! ...\n"
             shift
             ;;
+          rosepine)
+            schemes+=("${SCHEME_VARIANTS[6]}")
+            echo -e "\nRosepine ColorScheme version! ...\n"
+            shift
+            ;;
+          kanagawa)
+            schemes+=("${SCHEME_VARIANTS[7]}")
+            echo -e "\nKanagawa ColorScheme version! ...\n"
+            shift
+            ;;            
           all)
             schemes+=("${SCHEME_VARIANTS[@]}")
             echo -e "\All ColorSchemes version! ...\n"
