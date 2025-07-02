@@ -13,12 +13,12 @@
 
       schemes = [
         "default" "nord" "dracula" "gruvbox" "everforest"
-        "catppuccin" "rosepine" "kanagawa"
+        "catppuccin" "rosepine" "kanagawa" "all"
       ];
 
       colors = [
         "default" "purple" "pink" "red" "orange"
-        "yellow" "green" "teal" "grey"
+        "yellow" "green" "teal" "grey" "all"
       ];
 
       combinations =
